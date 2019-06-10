@@ -23,8 +23,8 @@ public class Main extends Application {
 		this.primaryStage.setTitle("Elõkészítõ Eljárás");
 		initTabParentLayout();
 		showTabAltalanos();
-//		showTabHrsz();
-//		showTabBeallitasok();
+		showTabHrsz();
+		showTabBeallitasok();
 	}
 
 	public void initTabParentLayout() {
