@@ -3,5 +3,7 @@
 /*.classpath
 .classpath
 /*.project
+.project
 /.settings
+.settings
 /*.springBeans
