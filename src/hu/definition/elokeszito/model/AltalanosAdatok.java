@@ -2,6 +2,9 @@ package hu.definition.elokeszito.model;
 
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import hu.definition.elokeszito.util.LocalDateAdapter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -93,6 +96,7 @@ public class AltalanosAdatok {
 		return city;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getBirthday() {
 		return birthday.get();
 	}
