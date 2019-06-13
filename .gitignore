@@ -2,8 +2,10 @@
 /bin/
 /*.classpath
 .classpath
+/.classpath
 /*.project
 .project
+/.project
 /.settings
 .settings
 /*.springBeans
