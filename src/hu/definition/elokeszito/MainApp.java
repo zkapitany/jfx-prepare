@@ -3,11 +3,13 @@ package hu.definition.elokeszito;
 import java.io.IOException;
 
 import hu.definition.elokeszito.model.AltalanosAdatok;
+import hu.definition.elokeszito.view.AltalanosDialogController;
 import hu.definition.elokeszito.view.TabAltalanosController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -115,6 +117,37 @@ public class MainApp extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+
+	public boolean showAltalanosDialog(AltalanosAdatok generalData) {
+	    try {
+
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainApp.class.getResource("view/AltalanosDialog.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Person");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        AltalanosDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setGeneralData(generalData);
+
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+	        
+	    } catch (IOException e) {
+	    	System.out.println(" --- showAltalanosDialog Error ---");
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 	
 	public Stage getPrimaryStage() {

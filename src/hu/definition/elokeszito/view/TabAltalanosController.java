@@ -93,5 +93,37 @@ public class TabAltalanosController {
 	        alert.showAndWait();
 	    }
 	}
+	
+
+	@FXML
+	private void handleNewPerson() {
+	    AltalanosAdatok tempAdatok = new AltalanosAdatok();
+	    boolean okClicked = mainApp.showAltalanosDialog(tempAdatok);
+	    if (okClicked) {
+	        mainApp.getGeneralData().add(tempAdatok);
+	    }
+	}
+
+	
+	@FXML
+	private void handleEditPerson() {
+	    AltalanosAdatok selectedAdat = generalTable.getSelectionModel().getSelectedItem();
+	    if (selectedAdat != null) {
+	        boolean okClicked = mainApp.showAltalanosDialog(selectedAdat);
+	        if (okClicked) {
+	            showPersonDetails(selectedAdat);
+	        }
+
+	    } else {
+	        // Nothing selected.
+	        Alert alert = new Alert(AlertType.WARNING);
+	        alert.initOwner(mainApp.getPrimaryStage());
+	        alert.setTitle("No Selection");
+	        alert.setHeaderText("No Person Selected");
+	        alert.setContentText("Please select a person in the table.");
+
+	        alert.showAndWait();
+	    }
+	}
 
 }
