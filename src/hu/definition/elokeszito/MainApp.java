@@ -2,7 +2,11 @@ package hu.definition.elokeszito;
 
 import java.io.IOException;
 
+import hu.definition.elokeszito.model.AltalanosAdatok;
+import hu.definition.elokeszito.view.TabAltalanosController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -11,10 +15,18 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class Main extends Application {
+public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane tabParentLayout;
+	private ObservableList<AltalanosAdatok> generalData = FXCollections.observableArrayList();
+	
+	public MainApp() {
+        // Add some sample data
+        generalData.add(new AltalanosAdatok("Kapitany", "Zoltan"));
+        generalData.add(new AltalanosAdatok("Zozo", "Meister"));
+        generalData.add(new AltalanosAdatok("John", "Lennon"));
+    }
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -31,7 +43,7 @@ public class Main extends Application {
 		try {
 			// Load TabParentLayout from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			tabParentLayout = loader.load();
 
 			// Show the Scene
@@ -50,14 +62,19 @@ public class Main extends Application {
 		try {
 			// Load Altalanos TAB from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/TabAltalanos.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/TabAltalanos.fxml"));
 			AnchorPane tabAltalanosContent = loader.load();
 
 			BorderPane tabBorderPane = (BorderPane) tabParentLayout.getChildren().get(1);
 			TabPane tabPane = (TabPane) tabBorderPane.getChildren().get(0);
 			Tab tabAltalanosFul = (Tab) tabPane.getTabs().get(0);
 
-			tabAltalanosFul.setContent(tabAltalanosContent);
+		    tabAltalanosFul.setContent(tabAltalanosContent);
+			 
+			TabAltalanosController controller = loader.getController();
+		    controller.setMain(this);
+		    
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,7 +85,7 @@ public class Main extends Application {
 		try {
 			// Load Hrsz TAB from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/TabHrsz.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/TabHrsz.fxml"));
 			AnchorPane tabHrszContent = loader.load();
 
 			BorderPane tabBorderPane = (BorderPane) tabParentLayout.getChildren().get(1);
@@ -86,7 +103,7 @@ public class Main extends Application {
 		try {
 			// Load Beállítások TAB from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/TabBeallitasok.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/TabBeallitasok.fxml"));
 			AnchorPane tabBeallitasokContent = loader.load();
 
 			BorderPane tabBorderPane = (BorderPane) tabParentLayout.getChildren().get(1);
@@ -99,6 +116,14 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+	
+	public ObservableList<AltalanosAdatok> getGeneralData() {
+        return generalData;
+    }
 
 	public static void main(String[] args) {
 		launch(args);
