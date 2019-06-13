@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "Általános Adatok")
+@XmlRootElement(name = "Általános_Adatok")
 public class AltalanosAdatokWrapper {
 
     private List<AltalanosAdatok> data;

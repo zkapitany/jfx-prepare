@@ -10,7 +10,6 @@ import javafx.stage.FileChooser;
 
 public class RootLayoutController {
 
-	// Reference to the main application
 	private MainApp mainApp;
 
 	public void setMainApp(MainApp mainApp) {

@@ -15,7 +15,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Új">
+                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Új Projekt">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -35,7 +35,12 @@
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Bezár" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Projekt bezárás">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Kilépés" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

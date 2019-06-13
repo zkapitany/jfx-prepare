@@ -226,7 +226,7 @@ public class MainApp extends Application {
 	        // Save the file path to the registry.
 	        setGeneralFilePath(file);
 
-	    } catch (Exception e) { // catches ANY exception
+	    } catch (Exception e) { // catches ANY exception	    	
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
 	        alert.setHeaderText("Could not load Data");
