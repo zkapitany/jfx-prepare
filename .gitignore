@@ -1,6 +1,7 @@
 /target/
 /bin/
 /*.classpath
+.classpath
 /*.project
 /.settings
 /*.springBeans
