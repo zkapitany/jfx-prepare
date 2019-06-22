@@ -24,13 +24,21 @@ public class TabProjektController {
 	@FXML
 	private Label projektRovidCimLabel;
 	@FXML
-	private Label streetLabel;
+	private Label munkaSzamLabel;
 	@FXML
-	private Label postalCodeLabel;
+	private Label rajzSzamLabel;
 	@FXML
-	private Label cityLabel;
+	private Label iktatoSzamLabel;
 	@FXML
-	private Label birthdayLabel;
+	private Label seplandSzamLabel;
+	@FXML
+	private Label pmhCimLabel;
+	@FXML
+	private Label ugyintezoNevLabel;
+	@FXML
+	private Label ugyintezoTelefonLabel;
+	@FXML
+	private Label maiDatumLabel;
 
 	private MainApp mainApp;
 
@@ -39,7 +47,7 @@ public class TabProjektController {
 
 	@FXML
 	private void initialize() {
-		// Initialize the person table with the two columns.
+		// Initialize the projekt table with the two columns.
 	    projektCimColumn.setCellValueFactory(cellData -> cellData.getValue().projektCimProperty());
 	    projektRovidCimColumn.setCellValueFactory(cellData -> cellData.getValue().projektRovidCimProperty());
 	    
@@ -62,18 +70,27 @@ public class TabProjektController {
 	    if (projektData != null) {
 	        projektCimLabel.setText(projektData.getProjektCim());
 	        projektRovidCimLabel.setText(projektData.getProjektRovidCim());
-	        streetLabel.setText(projektData.getStreet());
-	        postalCodeLabel.setText(Integer.toString(projektData.getPostalCode()));
-	        cityLabel.setText(projektData.getCity());
-	        birthdayLabel.setText(DateUtil.format(projektData.getBirthday()));
+	        munkaSzamLabel.setText(projektData.getMunkaSzam());
+	        rajzSzamLabel.setText(projektData.getRajzSzam());
+	        iktatoSzamLabel.setText(projektData.getIktatoSzam());
+	        seplandSzamLabel.setText(projektData.getSeplandSzam());
+	        pmhCimLabel.setText(projektData.getPmhCim());
+	        ugyintezoNevLabel.setText(projektData.getUgyintezoNev());
+	        ugyintezoTelefonLabel.setText(projektData.getUgyintezoTelefon());
+	        maiDatumLabel.setText(projektData.getMaiDatum());
 
 	    } else {
 	        projektCimLabel.setText("");
 	        projektRovidCimLabel.setText("");
-	        streetLabel.setText("");
-	        postalCodeLabel.setText("");
-	        cityLabel.setText("");
-	        birthdayLabel.setText("");
+	        munkaSzamLabel.setText("");
+	        rajzSzamLabel.setText("");
+	        iktatoSzamLabel.setText("");
+	        seplandSzamLabel.setText("");
+	        pmhCimLabel.setText("");
+	        ugyintezoNevLabel.setText("");
+	        ugyintezoTelefonLabel.setText("");
+	        maiDatumLabel.setText("");
+
 	    }
 	}
 	

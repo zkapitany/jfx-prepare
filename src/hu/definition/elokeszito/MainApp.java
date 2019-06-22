@@ -36,9 +36,7 @@ public class MainApp extends Application {
 	
 	public MainApp() {
         // Add some sample data
-        projectData.add(new ProjectData("Kapitany", "Zoltan"));
-        projectData.add(new ProjectData("Zozo", "Meister"));
-        projectData.add(new ProjectData("John", "Lennon"));
+        projectData.add(new ProjectData("McDonalds Gödöllõ", "Meki_new"));
     }
 
 	@Override
@@ -79,7 +77,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 		
-		// Try to load last opened person file.
+		// Try to load last opened projekt file.
 	    File file = getProjektFilePath();
 	    if (file != null) {
 	        loadProjektDataFromFile(file);
@@ -154,7 +152,7 @@ public class MainApp extends Application {
 	        AnchorPane page = (AnchorPane) loader.load();
 
 	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Person");
+	        dialogStage.setTitle("Edit Projekt");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(primaryStage);
 	        Scene scene = new Scene(page);
@@ -243,7 +241,7 @@ public class MainApp extends Application {
 	        Marshaller m = context.createMarshaller();
 	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-	        // Wrapping our person data.
+	        // Wrapping our projekt data.
 	        ProjectDataWrapper wrapper = new ProjectDataWrapper();
 	        wrapper.setData(projectData);
 

@@ -55,20 +55,32 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Projekt Cím" />
                                     <Label text="Projekt Rövid Cím" GridPane.rowIndex="1" />
-                                    <Label text="City" GridPane.rowIndex="2" />
-                                    <Label text="Street" GridPane.rowIndex="3" />
-                                    <Label text="PostalCode" GridPane.rowIndex="4" />
-                                    <Label text="Birthday" GridPane.rowIndex="5" />
+                                    <Label text="Munkaszám" GridPane.rowIndex="2" />
+                                    <Label text="Rajzszám" GridPane.rowIndex="3" />
+                                    <Label text="Iktatószám" GridPane.rowIndex="4" />
+                                    <Label text="Sepland" GridPane.rowIndex="5" />
+                                    <Label text="PMH Cím" GridPane.rowIndex="6" />
+                                    <Label text="Ügyintéző" GridPane.rowIndex="7" />
+                                    <Label text="Ügyintéző Telefon" GridPane.rowIndex="8" />
+                                    <Label text="Mai Dátum" GridPane.rowIndex="9" />
+                                    
                                     <Label fx:id="projektCimLabel" text="Label" GridPane.columnIndex="1" />
                                     <Label fx:id="projektRovidCimLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="munkaSzamLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="rajzSzamLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="iktatoSzamLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="seplandSzamLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="pmhCimLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="ugyintezoNevLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label fx:id="ugyintezoTelefonLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label fx:id="maiDatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                  </children>
                               </GridPane>
                            </children>

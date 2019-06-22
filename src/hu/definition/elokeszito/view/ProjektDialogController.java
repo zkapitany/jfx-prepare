@@ -16,17 +16,25 @@ public class ProjektDialogController {
     @FXML
     private TextField projektRovidCimField;
     @FXML
-    private TextField streetField;
+    private TextField munkaSzamField;
     @FXML
-    private TextField postalCodeField;
+    private TextField rajzSzamField;
     @FXML
-    private TextField cityField;
+    private TextField iktatoSzamField;
     @FXML
-    private TextField birthdayField;
+    private TextField seplandSzamField;
+    @FXML
+    private TextField pmhCimField;
+    @FXML
+    private TextField ugyintezoNevField;
+    @FXML
+    private TextField ugyintezoTelefonField;
+    @FXML
+    private TextField maiDatumField;
 
 
     private Stage dialogStage;
-    private ProjectData generalData;
+    private ProjectData projektData;
     private boolean okClicked = false;
 
 
@@ -40,16 +48,19 @@ public class ProjektDialogController {
     }
 
 
-    public void setProjektData(ProjectData generalData) {
-        this.generalData = generalData;
+    public void setProjektData(ProjectData projektData) {
+        this.projektData = projektData;
 
-        projektCimField.setText(generalData.getProjektCim());
-        projektRovidCimField.setText(generalData.getProjektRovidCim());
-        streetField.setText(generalData.getStreet());
-        postalCodeField.setText(Integer.toString(generalData.getPostalCode()));
-        cityField.setText(generalData.getCity());
-        birthdayField.setText(DateUtil.format(generalData.getBirthday()));
-        birthdayField.setPromptText("dd.mm.yyyy");
+        projektCimField.setText(projektData.getProjektCim());
+        projektRovidCimField.setText(projektData.getProjektRovidCim());
+        munkaSzamField.setText(projektData.getMunkaSzam());
+        rajzSzamField.setText(projektData.getRajzSzam());
+        iktatoSzamField.setText(projektData.getIktatoSzam());
+        seplandSzamField.setText(projektData.getSeplandSzam());
+        pmhCimField.setText(projektData.getPmhCim());
+        ugyintezoNevField.setText(projektData.getUgyintezoNev());
+        ugyintezoTelefonField.setText(projektData.getUgyintezoTelefon());
+        maiDatumField.setText(projektData.getMaiDatum());
     }
 
 
@@ -61,12 +72,16 @@ public class ProjektDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-        	generalData.setProjektCim(projektCimField.getText());
-        	generalData.setProjektRovidCim(projektRovidCimField.getText());
-        	generalData.setStreet(streetField.getText());
-        	generalData.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-        	generalData.setCity(cityField.getText());
-        	generalData.setBirthday(DateUtil.parse(birthdayField.getText()));
+        	projektData.setProjektCim(projektCimField.getText());
+        	projektData.setProjektRovidCim(projektRovidCimField.getText());
+        	projektData.setMunkaSzam(munkaSzamField.getText());
+        	projektData.setRajzSzam(rajzSzamField.getText());
+        	projektData.setIktatoSzam(iktatoSzamField.getText());
+        	projektData.setSeplandSzam(seplandSzamField.getText());
+        	projektData.setPmhCim(pmhCimField.getText());
+        	projektData.setUgyintezoNev(ugyintezoNevField.getText());
+        	projektData.setUgyintezoTelefon(ugyintezoTelefonField.getText());
+        	projektData.setMaiDatum(maiDatumField.getText());
 
             okClicked = true;
             dialogStage.close();
@@ -83,37 +98,36 @@ public class ProjektDialogController {
         String errorMessage = "";
 
         if (projektCimField.getText() == null || projektCimField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n"; 
+            errorMessage += "Üres Projekt Cím!\n"; 
         }
         if (projektRovidCimField.getText() == null || projektRovidCimField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n"; 
+            errorMessage += "Üres Rövid Projekt Cím!\n"; 
         }
-        if (streetField.getText() == null || streetField.getText().length() == 0) {
-            errorMessage += "No valid street!\n"; 
+        if (munkaSzamField.getText() == null || munkaSzamField.getText().length() == 0) {
+            errorMessage += "Üres Munkaszám!\n"; 
         }
-
-        if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-            errorMessage += "No valid postal code!\n"; 
-        } else {
-            // try to parse the postal code into an int.
-            try {
-                Integer.parseInt(postalCodeField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n"; 
-            }
+        if (rajzSzamField.getText() == null || rajzSzamField.getText().length() == 0) {
+            errorMessage += "Üres Rajzszám!\n"; 
         }
-
-        if (cityField.getText() == null || cityField.getText().length() == 0) {
-            errorMessage += "No valid city!\n"; 
+        if (iktatoSzamField.getText() == null || iktatoSzamField.getText().length() == 0) {
+            errorMessage += "Üres Iktatószám!\n"; 
         }
-
-        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
-        } else {
-            if (!DateUtil.validDate(birthdayField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
-            }
+        if (seplandSzamField.getText() == null || seplandSzamField.getText().length() == 0) {
+            errorMessage += "Üres Sepland Szám!\n"; 
         }
+        if (pmhCimField.getText() == null || pmhCimField.getText().length() == 0) {
+            errorMessage += "Üres PMH név!\n"; 
+        }
+        if (ugyintezoNevField.getText() == null || ugyintezoNevField.getText().length() == 0) {
+            errorMessage += "Üres Ügyintézõ Név!\n"; 
+        }
+        if (ugyintezoTelefonField.getText() == null || ugyintezoTelefonField.getText().length() == 0) {
+            errorMessage += "Üres Ügyintézõ Telefon!\n"; 
+        }
+        if (maiDatumField.getText() == null || maiDatumField.getText().length() == 0) {
+            errorMessage += "Üres Mai Dátum!\n"; 
+        }
+        
 
         if (errorMessage.length() == 0) {
             return true;
@@ -121,8 +135,8 @@ public class ProjektDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Üres Mezõ");
+            alert.setHeaderText("Javítsd az üres mezõt/mezõket!");
             alert.setContentText(errorMessage);
             
             alert.showAndWait();

@@ -40,9 +40,9 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleSave() {
-		File generalFile = mainApp.getProjektFilePath();
-		if (generalFile != null) {
-			mainApp.saveProjektDataToFile(generalFile);
+		File projektFile = mainApp.getProjektFilePath();
+		if (projektFile != null) {
+			mainApp.saveProjektDataToFile(projektFile);
 		} else {
 			handleSaveAs();
 		}
