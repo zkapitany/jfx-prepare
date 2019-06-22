@@ -12,22 +12,22 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class AltalanosAdatok {
+public class ProjectData {
 
-	private final StringProperty firstName;
-	private final StringProperty lastName;
+	private final StringProperty projektCim;
+	private final StringProperty projektRovidCim;
 	private final StringProperty street;
 	private final IntegerProperty postalCode;
 	private final StringProperty city;
 	private final ObjectProperty<LocalDate> birthday;
 
-	public AltalanosAdatok() {
+	public ProjectData() {
 		this(null, null);
 	}
 
-	public AltalanosAdatok(String firstName, String lastName) {
-		this.firstName = new SimpleStringProperty(firstName);
-		this.lastName = new SimpleStringProperty(lastName);
+	public ProjectData(String projektCim, String projektRovidCim) {
+		this.projektCim = new SimpleStringProperty(projektCim);
+		this.projektRovidCim = new SimpleStringProperty(projektRovidCim);
 
 		// Some initial dummy data, just for convenient testing.
 		this.street = new SimpleStringProperty("some street");
@@ -36,28 +36,28 @@ public class AltalanosAdatok {
 		this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
 	}
 
-	public String getFirstName() {
-		return firstName.get();
+	public String getProjektCim() {
+		return projektCim.get();
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName.set(firstName);
+	public void setProjektCim(String projektCim) {
+		this.projektCim.set(projektCim);
 	}
 
-	public StringProperty firstNameProperty() {
-		return firstName;
+	public StringProperty projektCimProperty() {
+		return projektCim;
 	}
 
-	public String getLastName() {
-		return lastName.get();
+	public String getProjektRovidCim() {
+		return projektRovidCim.get();
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName.set(lastName);
+	public void setProjektRovidCim(String projektRovidCim) {
+		this.projektRovidCim.set(projektRovidCim);
 	}
 
-	public StringProperty lastNameProperty() {
-		return lastName;
+	public StringProperty projektRovidCimProperty() {
+		return projektRovidCim;
 	}
 
 	public String getStreet() {

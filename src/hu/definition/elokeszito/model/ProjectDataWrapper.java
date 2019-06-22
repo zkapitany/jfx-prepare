@@ -6,17 +6,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "Általános_Adatok")
-public class AltalanosAdatokWrapper {
+@XmlRootElement(name = "Projekt_Adatok")
+public class ProjectDataWrapper {
 
-    private List<AltalanosAdatok> data;
+    private List<ProjectData> data;
 
     @XmlElement(name = "Projekt")
-    public List<AltalanosAdatok> getData() {
+    public List<ProjectData> getData() {
         return data;
     }
 
-    public void setData(List<AltalanosAdatok> data) {
+    public void setData(List<ProjectData> data) {
         this.data = data;
     }
 }

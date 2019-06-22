@@ -1,6 +1,6 @@
 package hu.definition.elokeszito.view;
 
-import hu.definition.elokeszito.model.AltalanosAdatok;
+import hu.definition.elokeszito.model.ProjectData;
 import hu.definition.elokeszito.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,12 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class AltalanosDialogController {
+public class ProjektDialogController {
 
     @FXML
-    private TextField firstNameField;
+    private TextField projektCimField;
     @FXML
-    private TextField lastNameField;
+    private TextField projektRovidCimField;
     @FXML
     private TextField streetField;
     @FXML
@@ -26,7 +26,7 @@ public class AltalanosDialogController {
 
 
     private Stage dialogStage;
-    private AltalanosAdatok generalData;
+    private ProjectData generalData;
     private boolean okClicked = false;
 
 
@@ -40,11 +40,11 @@ public class AltalanosDialogController {
     }
 
 
-    public void setGeneralData(AltalanosAdatok generalData) {
+    public void setProjektData(ProjectData generalData) {
         this.generalData = generalData;
 
-        firstNameField.setText(generalData.getFirstName());
-        lastNameField.setText(generalData.getLastName());
+        projektCimField.setText(generalData.getProjektCim());
+        projektRovidCimField.setText(generalData.getProjektRovidCim());
         streetField.setText(generalData.getStreet());
         postalCodeField.setText(Integer.toString(generalData.getPostalCode()));
         cityField.setText(generalData.getCity());
@@ -61,8 +61,8 @@ public class AltalanosDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-        	generalData.setFirstName(firstNameField.getText());
-        	generalData.setLastName(lastNameField.getText());
+        	generalData.setProjektCim(projektCimField.getText());
+        	generalData.setProjektRovidCim(projektRovidCimField.getText());
         	generalData.setStreet(streetField.getText());
         	generalData.setPostalCode(Integer.parseInt(postalCodeField.getText()));
         	generalData.setCity(cityField.getText());
@@ -82,10 +82,10 @@ public class AltalanosDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
+        if (projektCimField.getText() == null || projektCimField.getText().length() == 0) {
             errorMessage += "No valid first name!\n"; 
         }
-        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
+        if (projektRovidCimField.getText() == null || projektRovidCimField.getText().length() == 0) {
             errorMessage += "No valid last name!\n"; 
         }
         if (streetField.getText() == null || streetField.getText().length() == 0) {

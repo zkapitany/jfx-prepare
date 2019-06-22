@@ -18,8 +18,8 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleNew() {
-		mainApp.getGeneralData().clear();
-		mainApp.setGeneralFilePath(null);
+		mainApp.getprojektData().clear();
+		mainApp.setProjektFilePath(null);
 	}
 
 	@FXML
@@ -34,15 +34,15 @@ public class RootLayoutController {
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
 		if (file != null) {
-			mainApp.loadGeneralDataFromFile(file);
+			mainApp.loadProjektDataFromFile(file);
 		}
 	}
 
 	@FXML
 	private void handleSave() {
-		File generalFile = mainApp.getGeneralFilePath();
+		File generalFile = mainApp.getProjektFilePath();
 		if (generalFile != null) {
-			mainApp.saveGeneralDataToFile(generalFile);
+			mainApp.saveProjektDataToFile(generalFile);
 		} else {
 			handleSaveAs();
 		}
@@ -64,7 +64,7 @@ public class RootLayoutController {
 			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
-			mainApp.saveGeneralDataToFile(file);
+			mainApp.saveProjektDataToFile(file);
 		}
 	}
 

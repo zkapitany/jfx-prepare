@@ -61,7 +61,7 @@
          <center>
             <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
-                <Tab fx:id="tabAltalanos" text="Általános Adatok">
+                <Tab fx:id="tabProjekt" text="Projekt Adatok">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>

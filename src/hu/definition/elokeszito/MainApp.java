@@ -8,11 +8,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import hu.definition.elokeszito.model.AltalanosAdatok;
-import hu.definition.elokeszito.model.AltalanosAdatokWrapper;
-import hu.definition.elokeszito.view.AltalanosDialogController;
+import hu.definition.elokeszito.model.ProjectData;
+import hu.definition.elokeszito.model.ProjectDataWrapper;
+import hu.definition.elokeszito.view.ProjektDialogController;
 import hu.definition.elokeszito.view.RootLayoutController;
-import hu.definition.elokeszito.view.TabAltalanosController;
+import hu.definition.elokeszito.view.TabProjektController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,13 +32,13 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane tabParentLayout;
-	private ObservableList<AltalanosAdatok> generalData = FXCollections.observableArrayList();
+	private ObservableList<ProjectData> projectData = FXCollections.observableArrayList();
 	
 	public MainApp() {
         // Add some sample data
-        generalData.add(new AltalanosAdatok("Kapitany", "Zoltan"));
-        generalData.add(new AltalanosAdatok("Zozo", "Meister"));
-        generalData.add(new AltalanosAdatok("John", "Lennon"));
+        projectData.add(new ProjectData("Kapitany", "Zoltan"));
+        projectData.add(new ProjectData("Zozo", "Meister"));
+        projectData.add(new ProjectData("John", "Lennon"));
     }
 
 	@Override
@@ -50,7 +50,7 @@ public class MainApp extends Application {
 		this.primaryStage.getIcons().add(new Image("file:resources/images/address_book_32.png"));
 		
 		initTabParentLayout();
-		showTabAltalanos();
+		showTabProjekt();
 		showTabHrsz();
 		showTabBeallitasok();
 		
@@ -80,26 +80,26 @@ public class MainApp extends Application {
 		}
 		
 		// Try to load last opened person file.
-	    File file = getGeneralFilePath();
+	    File file = getProjektFilePath();
 	    if (file != null) {
-	        loadGeneralDataFromFile(file);
+	        loadProjektDataFromFile(file);
 	    }
 	}
 
-	public void showTabAltalanos() {
+	public void showTabProjekt() {
 		try {
-			// Load Altalanos TAB from fxml file
+			// Load Projekt TAB from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/TabAltalanos.fxml"));
-			AnchorPane tabAltalanosContent = loader.load();
+			loader.setLocation(MainApp.class.getResource("view/TabProjekt.fxml"));
+			AnchorPane TabProjektContent = loader.load();
 
 			BorderPane tabBorderPane = (BorderPane) tabParentLayout.getChildren().get(1);
 			TabPane tabPane = (TabPane) tabBorderPane.getChildren().get(0);
-			Tab tabAltalanosFul = (Tab) tabPane.getTabs().get(0);
+			Tab TabProjektFul = (Tab) tabPane.getTabs().get(0);
 
-		    tabAltalanosFul.setContent(tabAltalanosContent);
+		    TabProjektFul.setContent(TabProjektContent);
 			 
-			TabAltalanosController controller = loader.getController();
+			TabProjektController controller = loader.getController();
 		    controller.setMain(this);
 		    
 
@@ -146,11 +146,11 @@ public class MainApp extends Application {
 	}
 	
 
-	public boolean showAltalanosDialog(AltalanosAdatok generalData) {
+	public boolean showProjektDialog(ProjectData projektData) {
 	    try {
 
 	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(MainApp.class.getResource("view/AltalanosDialog.fxml"));
+	        loader.setLocation(MainApp.class.getResource("view/ProjektDialog.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
 
 	        Stage dialogStage = new Stage();
@@ -160,9 +160,9 @@ public class MainApp extends Application {
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 
-	        AltalanosDialogController controller = loader.getController();
+	        ProjektDialogController controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
-	        controller.setGeneralData(generalData);
+	        controller.setProjektData(projektData);
 
 	        // Show the dialog and wait until the user closes it
 	        dialogStage.showAndWait();
@@ -170,7 +170,6 @@ public class MainApp extends Application {
 	        return controller.isOkClicked();
 	        
 	    } catch (IOException e) {
-	    	System.out.println(" --- showAltalanosDialog Error ---");
 	        e.printStackTrace();
 	        return false;
 	    }
@@ -180,12 +179,12 @@ public class MainApp extends Application {
         return primaryStage;
     }
 	
-	public ObservableList<AltalanosAdatok> getGeneralData() {
-        return generalData;
+	public ObservableList<ProjectData> getprojektData() {
+        return projectData;
     }
 	
 	
-	public File getGeneralFilePath() {
+	public File getProjektFilePath() {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 	    String filePath = prefs.get("filePath", null);
 	    if (filePath != null) {
@@ -196,7 +195,7 @@ public class MainApp extends Application {
 	}
 
 
-	public void setGeneralFilePath(File file) {
+	public void setProjektFilePath(File file) {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 	    if (file != null) {
 	        prefs.put("filePath", file.getPath());
@@ -211,54 +210,54 @@ public class MainApp extends Application {
 	
 	
 	
-	public void loadGeneralDataFromFile(File file) {
+	public void loadProjektDataFromFile(File file) {
 	    try {
 	        JAXBContext context = JAXBContext
-	                .newInstance(AltalanosAdatokWrapper.class);
+	                .newInstance(ProjectDataWrapper.class);
 	        Unmarshaller um = context.createUnmarshaller();
 
 	        // Reading XML from the file and unmarshalling.
-	        AltalanosAdatokWrapper wrapper = (AltalanosAdatokWrapper) um.unmarshal(file);
+	        ProjectDataWrapper wrapper = (ProjectDataWrapper) um.unmarshal(file);
 
-	        generalData.clear();
-	        generalData.addAll(wrapper.getData());
+	        projectData.clear();
+	        projectData.addAll(wrapper.getData());
 
 	        // Save the file path to the registry.
-	        setGeneralFilePath(file);
+	        setProjektFilePath(file);
 
 	    } catch (Exception e) { // catches ANY exception	    	
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
 	        alert.setHeaderText("Could not load Data");
-	        alert.setContentText("Could not load general data from file:\n" + file.getPath());
+	        alert.setContentText("Could not load projekt data from file:\n" + file.getPath());
 
 	        alert.showAndWait();
 	    }
 	}
 
 
-	public void saveGeneralDataToFile(File file) {
+	public void saveProjektDataToFile(File file) {
 	    try {
 	        JAXBContext context = JAXBContext
-	                .newInstance(AltalanosAdatokWrapper.class);
+	                .newInstance(ProjectDataWrapper.class);
 	        Marshaller m = context.createMarshaller();
 	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 	        // Wrapping our person data.
-	        AltalanosAdatokWrapper wrapper = new AltalanosAdatokWrapper();
-	        wrapper.setData(generalData);
+	        ProjectDataWrapper wrapper = new ProjectDataWrapper();
+	        wrapper.setData(projectData);
 
 	        // Marshalling and saving XML to the file.
 	        m.marshal(wrapper, file);
 
 	        // Save the file path to the registry.
-	        setGeneralFilePath(file);
+	        setProjektFilePath(file);
 	        
 	    } catch (Exception e) { // catches ANY exception
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
 	        alert.setHeaderText("Could not save data");
-	        alert.setContentText("Could not save general data to file:\n" + file.getPath());
+	        alert.setContentText("Could not save projekt data to file:\n" + file.getPath());
 
 	        alert.showAndWait();
 	    }
