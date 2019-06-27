@@ -12,6 +12,7 @@ import hu.definition.elokeszito.model.Hrsz;
 import hu.definition.elokeszito.model.ProjectData;
 import hu.definition.elokeszito.model.ProjectDataWrapper;
 import hu.definition.elokeszito.model.Tulajdonos;
+import hu.definition.elokeszito.view.HrszDialogController;
 import hu.definition.elokeszito.view.ProjektDialogController;
 import hu.definition.elokeszito.view.RootLayoutController;
 import hu.definition.elokeszito.view.TabHrszController;
@@ -176,6 +177,35 @@ public class MainApp extends Application {
 	        ProjektDialogController controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
 	        controller.setProjektData(projektData);
+
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+	        
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public boolean showHrszDialog(Hrsz hrsz) {
+	    try {
+
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainApp.class.getResource("view/HrszDialog.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Hrsz.");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        HrszDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setHrsz(hrsz);
 
 	        // Show the dialog and wait until the user closes it
 	        dialogStage.showAndWait();

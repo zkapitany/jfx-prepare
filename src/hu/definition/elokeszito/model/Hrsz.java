@@ -12,6 +12,10 @@ public class Hrsz {
 	private final StringProperty utca;
 	private final StringProperty besorolas;
 	private final ObjectProperty<Tulajdonos> tulajdonos;
+	
+	public Hrsz() {
+		this(null, null, null, null, null);
+	}
 
 	public Hrsz(String szam, String varos, String utca, String besorolas, Tulajdonos tulajdonos) {
 		this.szam = new SimpleStringProperty(szam);
