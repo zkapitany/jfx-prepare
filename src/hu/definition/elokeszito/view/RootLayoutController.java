@@ -18,7 +18,7 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleNew() {
-		mainApp.getprojektData().clear();
+		mainApp.getProjektData().clear();
 		mainApp.setProjektFilePath(null);
 	}
 

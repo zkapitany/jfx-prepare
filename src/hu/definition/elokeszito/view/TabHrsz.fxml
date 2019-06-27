@@ -13,16 +13,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.definition.elokeszito.view.TabHrszController">
    <children>
-      <SplitPane dividerPositions="0.487468671679198" layoutX="162.0" layoutY="57.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5476190476190477" layoutX="162.0" layoutY="57.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="20.0" layoutY="49.0" prefHeight="298.0" prefWidth="239.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+                  <TableView fx:id="hrszTable" layoutX="20.0" layoutY="49.0" prefHeight="298.0" prefWidth="239.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="hrszColumn" prefWidth="75.0" text="C1" />
+                      <TableColumn fx:id="tulajdonosColumn" prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="hanyadColumn" prefWidth="75.0" text="C2" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -32,13 +33,13 @@
                   <TextField layoutX="69.0" layoutY="10.0" prefHeight="25.0" prefWidth="241.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="300.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="373.0">
                <children>
                   <ButtonBar layoutX="82.0" layoutY="244.0" prefHeight="40.0" prefWidth="266.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
+                      <Button mnemonicParsing="false" text="Új Hrsz." />
+                        <Button mnemonicParsing="false" text="Módosítás" />
+                        <Button mnemonicParsing="false" text="Töröl" />
                     </buttons>
                   </ButtonBar>
                   <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="241.0" prefWidth="333.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -60,20 +61,20 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Label" />
-                                    <Label text="Label" GridPane.rowIndex="1" />
-                                    <Label text="Label" GridPane.rowIndex="2" />
-                                    <Label text="Label" GridPane.rowIndex="3" />
-                                    <Label text="Label" GridPane.rowIndex="4" />
-                                    <Label text="Label" GridPane.rowIndex="5" />
-                                    <Label text="Label" GridPane.rowIndex="6" />
-                                    <Label text="Label" GridPane.columnIndex="1" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label text="Hrsz." />
+                                    <Label text="Hrsz. Város" GridPane.rowIndex="1" />
+                                    <Label text="Hrsz. Utca" GridPane.rowIndex="2" />
+                                    <Label text="Besorolás" GridPane.rowIndex="3" />
+                                    <Label text="Tulajdonos Név" GridPane.rowIndex="4" />
+                                    <Label text="Tulajdonos Cím" GridPane.rowIndex="5" />
+                                    <Label text="Hányad" GridPane.rowIndex="6" />
+                                    <Label fx:id="hrszSzamLabel" text="Label" GridPane.columnIndex="1" />
+                                    <Label fx:id="hrszVarosLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="hrszUtcaLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="hrszBesorolasLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="tulajdonosNevLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="tulajdonosCimLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="tulajdonosHanyadLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
                            </children>

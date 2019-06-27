@@ -8,10 +8,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import hu.definition.elokeszito.model.Hrsz;
 import hu.definition.elokeszito.model.ProjectData;
 import hu.definition.elokeszito.model.ProjectDataWrapper;
+import hu.definition.elokeszito.model.Tulajdonos;
 import hu.definition.elokeszito.view.ProjektDialogController;
 import hu.definition.elokeszito.view.RootLayoutController;
+import hu.definition.elokeszito.view.TabHrszController;
 import hu.definition.elokeszito.view.TabProjektController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -33,10 +36,19 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane tabParentLayout;
 	private ObservableList<ProjectData> projectData = FXCollections.observableArrayList();
+	private ObservableList<Hrsz> hrszList = FXCollections.observableArrayList();
+//	private ObservableList<Tulajdonos> tulajdonosList = FXCollections.observableArrayList();
 	
 	public MainApp() {
         // Add some sample data
         projectData.add(new ProjectData("McDonalds Gödöllõ", "Meki_new"));
+        hrszList.add(new Hrsz("1724/5", "Vác", "Hunyadi u. 13.", "kivett út", new Tulajdonos("Kiss Péter", "Vác Dózsa Gy. út 58.", "1724/5", "1/2")));
+        hrszList.add(new Hrsz("1724/5", "Vác", "Hunyadi u. 13.", "kivett út", new Tulajdonos("Nagy Ödön", "Pécel Keleti Gy. út 101.", "1724/5", "1/2")));
+        hrszList.add(new Hrsz("6644/23", "Vác", "Ady Endre út 20.", "kivett közterület", new Tulajdonos("Váci Önkormányzat", "Ady Endre út 20.", "6644/23", "1/1")));
+        hrszList.add(new Hrsz("82147/1", "Vác", "Bartók Béla u. 211/A.", "kivett malom", new Tulajdonos("Szabó László", "Bartók Béla u. 211/A.", "82147/1", "1/1")));
+
+//        tulajdonosList.add(new Tulajdonos("Váci Önkormányzat", "Vác Dózsa Gy. út 58.", "1724/5", "1/1"));
+        
     }
 
 	@Override
@@ -119,6 +131,9 @@ public class MainApp extends Application {
 			Tab tabHrszFul = (Tab) tabPane.getTabs().get(1);
 
 			tabHrszFul.setContent(tabHrszContent);
+			
+			TabHrszController hrszController = loader.getController();
+			hrszController.setMainApp(this);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -177,9 +192,17 @@ public class MainApp extends Application {
         return primaryStage;
     }
 	
-	public ObservableList<ProjectData> getprojektData() {
+	public ObservableList<ProjectData> getProjektData() {
         return projectData;
     }
+	
+	public ObservableList<Hrsz> getHrszList() {
+        return hrszList;
+    }
+	
+//	public ObservableList<Tulajdonos> getTulajdonosList() {
+//        return tulajdonosList;
+//    }
 	
 	
 	public File getProjektFilePath() {

@@ -62,7 +62,7 @@ public class TabProjektController {
 	public void setMain(MainApp mainApp) {
 		this.mainApp = mainApp;
 
-		projektTable.setItems(mainApp.getprojektData());
+		projektTable.setItems(mainApp.getProjektData());
 	}
 	
 	
@@ -117,7 +117,7 @@ public class TabProjektController {
 	    ProjectData tempData = new ProjectData();
 	    boolean okClicked = mainApp.showProjektDialog(tempData);
 	    if (okClicked) {
-	        mainApp.getprojektData().add(tempData);
+	        mainApp.getProjektData().add(tempData);
 	    }
 	}
 
