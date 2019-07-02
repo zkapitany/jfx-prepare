@@ -19,7 +19,9 @@ public class RootLayoutController {
 	@FXML
 	private void handleNew() {
 		mainApp.getProjektData().clear();
+		mainApp.getHrszList().clear();
 		mainApp.setProjektFilePath(null);
+		
 	}
 
 	@FXML

@@ -2,14 +2,20 @@ package hu.definition.elokeszito.view;
 
 import hu.definition.elokeszito.MainApp;
 import hu.definition.elokeszito.model.Hrsz;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 public class TabHrszController {
+	
+	@FXML
+	private TextField filterField;
+	
 	@FXML
 	private TableView<Hrsz> hrszTable;
 	@FXML
@@ -59,6 +65,11 @@ public class TabHrszController {
 	    // Listen for selection changes and show the person details when changed.
 	    hrszTable.getSelectionModel().selectedItemProperty().addListener(
 	            (observable, oldValue, newValue) -> showHrszDetails(newValue));
+	    
+	    //Sorting and filtering
+	    // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+//	 		FilteredList<Hrsz> filteredData = new FilteredList<>(, p -> true);
+	    
 	}
 
 	public void setMainApp(MainApp mainApp) {

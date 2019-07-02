@@ -9,6 +9,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import hu.definition.elokeszito.model.Hrsz;
+import hu.definition.elokeszito.model.HrszWrapper;
 import hu.definition.elokeszito.model.ProjectData;
 import hu.definition.elokeszito.model.ProjectDataWrapper;
 import hu.definition.elokeszito.view.HrszDialogController;
@@ -234,8 +235,11 @@ public class MainApp extends Application {
 	public File getProjektFilePath() {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 	    String filePath = prefs.get("filePath", null);
+	    String projektFilePath = prefs.get("projektFilePath", null);
+	    String hrszFilePath = prefs.get("hrszFilePath", null);
+	    
 	    if (filePath != null) {
-	        return new File(filePath);
+	        return new File(projektFilePath);
 	    } else {
 	        return null;
 	    }
@@ -245,30 +249,45 @@ public class MainApp extends Application {
 	public void setProjektFilePath(File file) {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 	    if (file != null) {
+	    	int lastDot = file.getPath().lastIndexOf('.');
+	    	String nameOnly = file.getPath().substring(0,lastDot);
+	    	
 	        prefs.put("filePath", file.getPath());
+	        prefs.put("projektFilePath", nameOnly + "-projekt.xml");
+	        prefs.put("hrszFfilePath", nameOnly + "-hrsz.xml");
+	        
 
 	        primaryStage.setTitle("Elõkészítõ - " + file.getName());
 	    } else {
 	        prefs.remove("filePath");
 
-	        primaryStage.setTitle("Elõkészítõ");
+	        primaryStage.setTitle("Elõkészítõ - not saved!");
 	    }
 	}
 	
 	
 	
-	public void loadProjektDataFromFile(File file) {
+	public void loadProjektDataFromFile(File file, File projektFile, File hrszFile) {
 	    try {
-	        JAXBContext context = JAXBContext
-	                .newInstance(ProjectDataWrapper.class);
+	        JAXBContext context = JAXBContext.newInstance(ProjectDataWrapper.class);
 	        Unmarshaller um = context.createUnmarshaller();
-
+	        
 	        // Reading XML from the file and unmarshalling.
-	        ProjectDataWrapper wrapper = (ProjectDataWrapper) um.unmarshal(file);
+	        ProjectDataWrapper projekdDataWrapper = (ProjectDataWrapper) um.unmarshal(projektFile);
 
 	        projectData.clear();
-	        projectData.addAll(wrapper.getData());
-
+	        projectData.addAll(projekdDataWrapper.getData());
+	        
+	        
+//	        //------------------------------------------------------------------
+	        JAXBContext hrszContext = JAXBContext.newInstance(HrszWrapper.class);
+	        Unmarshaller hrszUM = hrszContext.createUnmarshaller();
+	        
+	        HrszWrapper hrszWrapper = (HrszWrapper) hrszUM.unmarshal(hrszFile);
+	        
+	        hrszList.clear();
+	        hrszList.addAll(hrszWrapper.getData());
+	        
 	        // Save the file path to the registry.
 	        setProjektFilePath(file);
 
@@ -283,20 +302,29 @@ public class MainApp extends Application {
 	}
 
 
-	public void saveProjektDataToFile(File file) {
+	public void saveProjektDataToFile(File file, File projektFile, File hrszFile) {
 	    try {
-	        JAXBContext context = JAXBContext
-	                .newInstance(ProjectDataWrapper.class);
-	        Marshaller m = context.createMarshaller();
-	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	        JAXBContext projektContext = JAXBContext.newInstance(ProjectDataWrapper.class);
+	        Marshaller projektM = projektContext.createMarshaller();
+	        projektM.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 	        // Wrapping our projekt data.
-	        ProjectDataWrapper wrapper = new ProjectDataWrapper();
-	        wrapper.setData(projectData);
-
+	        ProjectDataWrapper projektDataWrapper = new ProjectDataWrapper();
+	        projektDataWrapper.setData(projectData);
+	        
 	        // Marshalling and saving XML to the file.
-	        m.marshal(wrapper, file);
+	        projektM.marshal(projektDataWrapper,projektFile);
 
+//------------------------------------------------------------------------------
+	        JAXBContext hrszContext = JAXBContext.newInstance(HrszWrapper.class);
+	        Marshaller hrszM = hrszContext.createMarshaller();
+	        hrszM.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	        
+	        HrszWrapper hrszWrapper = new HrszWrapper();
+	        hrszWrapper.setData(hrszList);
+	        
+	        hrszM.marshal(hrszWrapper, hrszFile);
+	        
 	        // Save the file path to the registry.
 	        setProjektFilePath(file);
 	        
