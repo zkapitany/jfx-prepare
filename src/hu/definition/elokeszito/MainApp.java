@@ -11,7 +11,6 @@ import javax.xml.bind.Unmarshaller;
 import hu.definition.elokeszito.model.Hrsz;
 import hu.definition.elokeszito.model.ProjectData;
 import hu.definition.elokeszito.model.ProjectDataWrapper;
-import hu.definition.elokeszito.model.Tulajdonos;
 import hu.definition.elokeszito.view.HrszDialogController;
 import hu.definition.elokeszito.view.ProjektDialogController;
 import hu.definition.elokeszito.view.RootLayoutController;
@@ -43,13 +42,10 @@ public class MainApp extends Application {
 	public MainApp() {
         // Add some sample data
         projectData.add(new ProjectData("McDonalds Gödöllõ", "Meki_new"));
-        hrszList.add(new Hrsz("1724/5", "Vác", "Hunyadi u. 13.", "kivett út", new Tulajdonos("Kiss Péter", "Vác Dózsa Gy. út 58.", "1724/5", "1/2")));
-        hrszList.add(new Hrsz("1724/5", "Vác", "Hunyadi u. 13.", "kivett út", new Tulajdonos("Nagy Ödön", "Pécel Keleti Gy. út 101.", "1724/5", "1/2")));
-        hrszList.add(new Hrsz("6644/23", "Vác", "Ady Endre út 20.", "kivett közterület", new Tulajdonos("Váci Önkormányzat", "Ady Endre út 20.", "6644/23", "1/1")));
-        hrszList.add(new Hrsz("82147/1", "Vác", "Bartók Béla u. 211/A.", "kivett malom", new Tulajdonos("Szabó László", "Bartók Béla u. 211/A.", "82147/1", "1/1")));
-
-//        tulajdonosList.add(new Tulajdonos("Váci Önkormányzat", "Vác Dózsa Gy. út 58.", "1724/5", "1/1"));
-        
+        hrszList.add(new Hrsz("1724/5", "1/2", "Vác", "Hunyadi u.", "kivett út", "Kiss Péter", "2600", "Vác",  "Dózsa Gy. út 58."));
+        hrszList.add(new Hrsz("1724/5", "1/2", "Vác", "Hunyadi u.", "kivett út", "Nagy József", "2445", "Kistarcsa",  "Ferenc u. 101."));
+        hrszList.add(new Hrsz("66458/5", "1/1", "Vác", "Téglagyár u.", "kivett közterület", "Szabó Pál", "2620", "Vácegres",  "Sima u. 22."));
+                
     }
 
 	@Override
@@ -168,7 +164,7 @@ public class MainApp extends Application {
 	        AnchorPane page = (AnchorPane) loader.load();
 
 	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Projekt");
+	        dialogStage.setTitle("Projekt Dialog");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(primaryStage);
 	        Scene scene = new Scene(page);
@@ -197,7 +193,7 @@ public class MainApp extends Application {
 	        AnchorPane page = (AnchorPane) loader.load();
 
 	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Hrsz.");
+	        dialogStage.setTitle("Hrsz. Dialog");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(primaryStage);
 	        Scene scene = new Scene(page);

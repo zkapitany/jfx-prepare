@@ -2,7 +2,6 @@ package hu.definition.elokeszito.view;
 
 import hu.definition.elokeszito.MainApp;
 import hu.definition.elokeszito.model.Hrsz;
-import hu.definition.elokeszito.model.Tulajdonos;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -23,6 +22,8 @@ public class TabHrszController {
 	@FXML
 	private Label hrszSzamLabel;
 	@FXML
+	private Label hrszHanyadLabel;
+	@FXML
 	private Label hrszVarosLabel;
 	@FXML
 	private Label hrszUtcaLabel;
@@ -31,9 +32,13 @@ public class TabHrszController {
 	@FXML
 	private Label tulajdonosNevLabel;
 	@FXML
-	private Label tulajdonosCimLabel;
+	private Label tulajdonosHrszLabel;
 	@FXML
-	private Label tulajdonosHanyadLabel;
+	private Label tulajdonosVarosLabel;
+	@FXML
+	private Label tulajdonosUtcaLabel;
+	@FXML
+	private Label tulajdonosCimLabel;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -44,9 +49,9 @@ public class TabHrszController {
 	@FXML
 	private void initialize() {
 		// Initialize the person table with the two columns.
-		hrszColumn.setCellValueFactory(cellData -> cellData.getValue().szamProperty());
-		tulajdonosColumn.setCellValueFactory(cellData -> cellData.getValue().getTulajdonos().cimProperty());
-		hanyadColumn.setCellValueFactory(cellData -> cellData.getValue().getTulajdonos().hanyadProperty());
+		hrszColumn.setCellValueFactory(cellData -> cellData.getValue().hrszSzamProperty());
+		tulajdonosColumn.setCellValueFactory(cellData -> cellData.getValue().tulajdonosCimProperty());
+		hanyadColumn.setCellValueFactory(cellData -> cellData.getValue().hrszHanyadProperty());
 		
 		// Clear person details.
 	    showHrszDetails(null);
@@ -72,23 +77,29 @@ public class TabHrszController {
 	private void showHrszDetails(Hrsz hrsz) {
 	    if (hrsz != null) {
 	        // Fill the labels with info from the person object.
-	        hrszSzamLabel.setText(hrsz.getSzam());
-	        hrszVarosLabel.setText(hrsz.getVaros());
-	        hrszUtcaLabel.setText(hrsz.getUtca());
-	        hrszBesorolasLabel.setText(hrsz.getBesorolas());
-	        tulajdonosNevLabel.setText(hrsz.getTulajdonos().getNev());
-	        tulajdonosCimLabel.setText(hrsz.getTulajdonos().getCim());
-	        tulajdonosHanyadLabel.setText(hrsz.getTulajdonos().getHanyad());
+	        hrszSzamLabel.setText(hrsz.getHrszSzam());
+	        hrszHanyadLabel.setText(hrsz.getHrszHanyad());
+	        hrszVarosLabel.setText(hrsz.getHrszVaros());
+	        hrszUtcaLabel.setText(hrsz.getHrszUtca());
+	        hrszBesorolasLabel.setText(hrsz.getHrszBesorolas());
+	        tulajdonosNevLabel.setText(hrsz.getTulajdonosNev());
+	        tulajdonosHrszLabel.setText(hrsz.getTulajdonosHrsz());
+	        tulajdonosVarosLabel.setText(hrsz.getTulajdonosVaros());
+	        tulajdonosUtcaLabel.setText(hrsz.getTulajdonosUtca());
+	        tulajdonosCimLabel.setText(hrsz.getTulajdonosCim());
 	        
 
 	    } else {
 	    	hrszSzamLabel.setText("");
+	    	hrszHanyadLabel.setText("");
 	        hrszVarosLabel.setText("");
 	        hrszUtcaLabel.setText("");
 	        hrszBesorolasLabel.setText("");
 	        tulajdonosNevLabel.setText("");
+	        tulajdonosHrszLabel.setText("");
+	        tulajdonosVarosLabel.setText("");
+	        tulajdonosUtcaLabel.setText("");
 	        tulajdonosCimLabel.setText("");
-	        tulajdonosHanyadLabel.setText("");
 	    }
 	}
 	
