@@ -21,9 +21,10 @@ public class RootLayoutController {
 		mainApp.getProjektData().clear();
 		mainApp.getHrszList().clear();
 		mainApp.setProjektFilePath(null);
+		mainApp.setHrszFilePath(null);
 		
 	}
-
+	
 	@FXML
 	private void handleOpen() {
 		FileChooser fileChooser = new FileChooser();
@@ -34,22 +35,38 @@ public class RootLayoutController {
 
 		// Show open file dialog
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+		
+		int lastDot = file.getPath().lastIndexOf('.');
+    	String nameOnly = file.getPath().substring(0,lastDot);
+
+		File hrszFile= new File(nameOnly + "-hrsz.xml");
 
 		if (file != null) {
 			mainApp.loadProjektDataFromFile(file);
+			mainApp.loadHrszDataFromFile(hrszFile);
 		}
+		
 	}
+	
+
+
 
 	@FXML
-	private void handleSave() {
+	private void handleSaveAll() {
 		File projektFile = mainApp.getProjektFilePath();
+		
 		if (projektFile != null) {
 			mainApp.saveProjektDataToFile(projektFile);
-		} else {
-			handleSaveAs();
-		}
-	}
+		} 
 
+		File hrszFile = mainApp.getHrszFilePath();
+		
+		if (hrszFile != null) {
+			mainApp.saveHrszDataToFile(hrszFile);
+		} 
+	}
+	
+	
 	@FXML
 	private void handleSaveAs() {
 		FileChooser fileChooser = new FileChooser();
@@ -60,6 +77,11 @@ public class RootLayoutController {
 
 		// Show save file dialog
 		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+		
+		int lastDot = file.getPath().lastIndexOf('.');
+    	String nameOnly = file.getPath().substring(0,lastDot);
+
+		File hrszFile= new File(nameOnly + "-hrsz.xml");
 
 		if (file != null) {
 			// Make sure it has the correct extension
@@ -67,8 +89,12 @@ public class RootLayoutController {
 				file = new File(file.getPath() + ".xml");
 			}
 			mainApp.saveProjektDataToFile(file);
+			mainApp.saveHrszDataToFile(hrszFile);
 		}
+		
 	}
+	
+
 
 	@FXML
 	private void handleAbout() {

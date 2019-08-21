@@ -88,9 +88,15 @@ public class MainApp extends Application {
 		}
 		
 		// Try to load last opened projekt file.
-	    File file = getProjektFilePath();
-	    if (file != null) {
-	        loadProjektDataFromFile(file);
+	    File projectFile = getProjektFilePath();
+	    if (projectFile != null) {
+	        loadProjektDataFromFile(projectFile);
+	    }
+	    
+	 // Try to load last opened hrsz file.
+	    File hrszFile = getHrszFilePath();
+	    if (hrszFile != null) {
+	        loadHrszDataFromFile(hrszFile);
 	    }
 	}
 
@@ -227,47 +233,61 @@ public class MainApp extends Application {
         return hrszList;
     }
 	
-//	public ObservableList<Tulajdonos> getTulajdonosList() {
-//        return tulajdonosList;
-//    }
 	
 	
 	public File getProjektFilePath() {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-	    String filePath = prefs.get("filePath", null);
 	    String projektFilePath = prefs.get("projektFilePath", null);
+	    
+	    if (projektFilePath != null) {
+	        return new File(projektFilePath);
+	    } else {
+	        return null;
+	    }
+	}
+	
+	public File getHrszFilePath() {
+	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 	    String hrszFilePath = prefs.get("hrszFilePath", null);
 	    
-	    if (filePath != null) {
-	        return new File(projektFilePath);
+	    if (hrszFilePath != null) {
+	        return new File(hrszFilePath);
 	    } else {
 	        return null;
 	    }
 	}
 
 
-	public void setProjektFilePath(File file) {
+	public void setProjektFilePath(File projektFile) {
 	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-	    if (file != null) {
-	    	int lastDot = file.getPath().lastIndexOf('.');
-	    	String nameOnly = file.getPath().substring(0,lastDot);
-	    	
-	        prefs.put("filePath", file.getPath());
-	        prefs.put("projektFilePath", nameOnly + "-projekt.xml");
-	        prefs.put("hrszFfilePath", nameOnly + "-hrsz.xml");
+	    if (projektFile != null) {
+	    	prefs.put("projektFilePath", projektFile.getPath());
 	        
 
-	        primaryStage.setTitle("Elõkészítõ - " + file.getName());
+	        primaryStage.setTitle("Elõkészítõ - " + projektFile.getName());
 	    } else {
-	        prefs.remove("filePath");
+	        prefs.remove("projektFilePath");
+	        primaryStage.setTitle("Elõkészítõ - not saved!");
+	    }
+	}
+	
+	public void setHrszFilePath(File hrszFile) {
+	    Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+	    if (hrszFile != null) {
+	    	prefs.put("hrszFilePath", hrszFile.getPath());
+	        
 
+	        primaryStage.setTitle("Elõkészítõ - " + hrszFile.getName());
+	    } else {
+	        prefs.remove("hrszFilePath");
 	        primaryStage.setTitle("Elõkészítõ - not saved!");
 	    }
 	}
 	
 	
 	
-	public void loadProjektDataFromFile(File file, File projektFile, File hrszFile) {
+	
+	public void loadProjektDataFromFile(File projektFile) {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(ProjectDataWrapper.class);
 	        Unmarshaller um = context.createUnmarshaller();
@@ -279,7 +299,22 @@ public class MainApp extends Application {
 	        projectData.addAll(projekdDataWrapper.getData());
 	        
 	        
-//	        //------------------------------------------------------------------
+	        // Save the file path to the registry.
+	        setProjektFilePath(projektFile);
+
+	    } catch (Exception e) { // catches ANY exception	    	
+	        Alert alert = new Alert(AlertType.ERROR);
+	        alert.setTitle("Error");
+	        alert.setHeaderText("Could not load Projekt Data");
+	        alert.setContentText("Could not load projekt data from file:\n" + projektFile.getPath());
+
+	        alert.showAndWait();
+	    }
+	}
+
+
+	public void loadHrszDataFromFile(File hrszFile) {
+	    try {
 	        JAXBContext hrszContext = JAXBContext.newInstance(HrszWrapper.class);
 	        Unmarshaller hrszUM = hrszContext.createUnmarshaller();
 	        
@@ -289,20 +324,20 @@ public class MainApp extends Application {
 	        hrszList.addAll(hrszWrapper.getData());
 	        
 	        // Save the file path to the registry.
-	        setProjektFilePath(file);
+	        setHrszFilePath(hrszFile);
 
 	    } catch (Exception e) { // catches ANY exception	    	
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
-	        alert.setHeaderText("Could not load Data");
-	        alert.setContentText("Could not load projekt data from file:\n" + file.getPath());
+	        alert.setHeaderText("Could not load Hrsz Data");
+	        alert.setContentText("Could not load hrsz data from file:\n" + hrszFile.getPath());
 
 	        alert.showAndWait();
 	    }
 	}
-
-
-	public void saveProjektDataToFile(File file, File projektFile, File hrszFile) {
+	
+	
+	public void saveProjektDataToFile(File projektFile) {
 	    try {
 	        JAXBContext projektContext = JAXBContext.newInstance(ProjectDataWrapper.class);
 	        Marshaller projektM = projektContext.createMarshaller();
@@ -315,7 +350,24 @@ public class MainApp extends Application {
 	        // Marshalling and saving XML to the file.
 	        projektM.marshal(projektDataWrapper,projektFile);
 
-//------------------------------------------------------------------------------
+	        
+	        // Save the file path to the registry.
+	        setProjektFilePath(projektFile);
+	        
+	    } catch (Exception e) { // catches ANY exception
+	        Alert alert = new Alert(AlertType.ERROR);
+	        alert.setTitle("Error");
+	        alert.setHeaderText("Could not save projekt data");
+	        alert.setContentText("Could not save projekt data to file:\n" + projektFile.getPath());
+
+	        alert.showAndWait();
+	    }
+	}
+	
+	
+	public void saveHrszDataToFile(File hrszFile) {
+	    try {
+
 	        JAXBContext hrszContext = JAXBContext.newInstance(HrszWrapper.class);
 	        Marshaller hrszM = hrszContext.createMarshaller();
 	        hrszM.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -326,18 +378,17 @@ public class MainApp extends Application {
 	        hrszM.marshal(hrszWrapper, hrszFile);
 	        
 	        // Save the file path to the registry.
-	        setProjektFilePath(file);
+	        setHrszFilePath(hrszFile);
 	        
 	    } catch (Exception e) { // catches ANY exception
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
-	        alert.setHeaderText("Could not save data");
-	        alert.setContentText("Could not save projekt data to file:\n" + file.getPath());
+	        alert.setHeaderText("Could not save hrsz data");
+	        alert.setContentText("Could not save hrsz data to file:\n" + hrszFile.getPath());
 
 	        alert.showAndWait();
 	    }
 	}
-	
 	
 
 	public static void main(String[] args) {
